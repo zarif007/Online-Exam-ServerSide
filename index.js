@@ -22,11 +22,11 @@ const port = process.env.PORT || 5000;
 
 // Storing Exam info
 app.post('/makeexam', (req, res) => {
-    const {exam_id, name, subject, assign_date, last_date} = req.body;
+    const {author, exam_id, name, subject, assign_date, last_date} = req.body;
 
     db.query(
-        "INSERT INTO exams (exam_id, name, subject, assign_date, last_date) VALUES(?,?,?,?,?)",
-        [exam_id, name, subject, assign_date, last_date],
+        "INSERT INTO exams (author, exam_id, name, subject, assign_date, last_date) VALUES(?,?,?,?,?,?)",
+        [author, exam_id, name, subject, assign_date, last_date],
         (err, result) => {
             if(err)
                 console.log(err);
@@ -68,8 +68,8 @@ app.post('/addquestion', (req, res) => {
     )
 });
 
-// Getting Question
-app.get('/question/:id', (req, res) => {
+// Getting Questions
+app.get('/questions/:id', (req, res) => {
     const id = req.params.id;
 
     db.query(
@@ -81,7 +81,9 @@ app.get('/question/:id', (req, res) => {
                 res.send(result);
         }
     )
-})
+});
+
+
 
 
 
