@@ -164,7 +164,40 @@ app.get('/grades/:exam_id/:user_id', (req, res) => {
             }
         }
     );
-})
+});
+
+// Storing user's participation
+app.post('/participate/:exam_id/:user_id', (req, res) => {
+
+    const exam_id = req.params.exam_id, user_id = req.params.user_id;
+
+    db.query(
+        "INSERT INTO participation (exam_id, user_id) VALUES(?,?)",
+        [exam_id, user_id],
+        (err, result) => {
+            if(err)
+                console.log(err);
+            else 
+                console.log('inserted!!');
+        }
+    )
+});
+
+// Getting user's participation in a specific exam
+app.get('/participate/:exam_id/:user_id', (req, res) => {
+
+    const exam_id = req.params.exam_id, user_id = req.params.user_id;
+
+    db.query(
+        `SELECT * from participation WHERE exam_id="${exam_id}" AND user_id="${user_id}"`,
+        (err, result) => {
+            if(err)
+                console.log(err);
+            else 
+                res.send(result);
+        }
+    )
+});
 
 
 
