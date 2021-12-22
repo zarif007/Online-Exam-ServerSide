@@ -83,6 +83,23 @@ app.get('/questions/:id', (req, res) => {
     )
 });
 
+// Storing user's response
+app.post('/response', (req, res) => {
+
+    const { ques_id, user_id, answer, userAnswer } = req.body;
+
+    db.query(
+        "INSERT INTO response (ques_id, user_id, answer, userAnswer) VALUES(?,?,?,?)",
+        [ques_id, user_id, answer, userAnswer],
+        (err, result) => {
+            if(err)
+                console.log(err);
+            else 
+                console.log('inserted');
+        }
+    )
+});
+
 
 
 
