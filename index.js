@@ -199,6 +199,23 @@ app.get('/participate/:exam_id/:user_id', (req, res) => {
     )
 });
 
+// Updating a question
+app.patch('/updatequestion', (req, res) => {
+
+    const {exam_id, ques_id, question, option1, option2, option3, option4, answer} = req.body;
+
+    db.query(
+        `UPDATE questions SET question="${question}", option1="${option1}", option2="${option2}", option3="${option3}", option4="${option4}", answer="${answer}" 
+        WHERE ques_id="${ques_id}"`,
+        (err, result) => {
+            if(err)
+                console.log(err);
+            else 
+                res.send(result);
+        }
+    )
+});
+
 
 
 
