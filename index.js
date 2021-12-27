@@ -205,8 +205,25 @@ app.patch('/updatequestion', (req, res) => {
     const {exam_id, ques_id, question, option1, option2, option3, option4, answer} = req.body;
 
     db.query(
-        `UPDATE questions SET question="${question}", option1="${option1}", option2="${option2}", option3="${option3}", option4="${option4}", answer="${answer}" 
-        WHERE ques_id="${ques_id}"`,
+        `UPDATE questions SET question="${question}", option1="${option1}", option2="${option2}", 
+        option3="${option3}", option4="${option4}", answer="${answer}" WHERE ques_id="${ques_id}"`,
+        (err, result) => {
+            if(err)
+                console.log(err);
+            else 
+                res.send(result);
+        }
+    )
+});
+
+// Deleting a question
+app.delete('/deletequestion/:ques_id', (req, res) => {
+
+    const ques_id = req.params.ques_id;
+    console.log(ques_id)
+
+    db.query(
+        `DELETE from questions WHERE ques_id="${ques_id}"`,
         (err, result) => {
             if(err)
                 console.log(err);
