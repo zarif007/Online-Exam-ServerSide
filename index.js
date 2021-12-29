@@ -223,7 +223,8 @@ app.delete('/deletequestion/:ques_id', (req, res) => {
     console.log(ques_id)
 
     db.query(
-        `DELETE from questions WHERE ques_id="${ques_id}"`,
+        `DELETE questions, response from questions inner join response on 
+        questions.ques_id = response.ques_id WHERE questions.ques_id="${ques_id}"`,
         (err, result) => {
             if(err)
                 console.log(err);
