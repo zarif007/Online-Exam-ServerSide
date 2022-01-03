@@ -51,6 +51,21 @@ app.get('/exam/:id', (req, res) => {
     )
 });
 
+// Getting exam where user is author
+app.get('/examcreatedbyuser/:author', (req, res) => {
+    const author = req.params.author;
+
+    db.query(
+        `SELECT * from exams WHERE author="${author}"`,
+        (err, result) => {
+            if(err)
+                console.log(err);
+            else 
+                res.send(result);
+        }
+    )
+});
+
 // Storing Questions
 app.post('/addquestion', (req, res) => {
 
@@ -96,6 +111,22 @@ app.post('/response', (req, res) => {
                 console.log(err);
             else 
                 console.log('inserted');
+        }
+    )
+});
+
+// Getting responses of a specific question
+app.get('/responses/:quesId', (req, res) => {
+    
+    const ques_id = req.params.quesId;
+
+    db.query(
+        `SELECT * from response WHERE ques_id="${ques_id}"`,
+        (err, result) => {
+            if(err)
+                console.log(err);
+            else 
+                res.send(result);
         }
     )
 });
@@ -170,7 +201,7 @@ app.get('/grades/:exam_id/:user_id', (req, res) => {
 app.post('/participate/:exam_id/:user_id', (req, res) => {
 
     const exam_id = req.params.exam_id, user_id = req.params.user_id;
-    const {currect_answer, total_ques} = req.body;
+    const {currect_answer, total_ques, date, exam_name} = req.body;
 
     let shouldInsert = true;
 
@@ -182,8 +213,8 @@ app.post('/participate/:exam_id/:user_id', (req, res) => {
             else {
                 if(result.length === 0){
                     db.query(
-                        "INSERT INTO participation (exam_id, user_id, currect_answer, total_ques) VALUES(?,?,?,?)",
-                        [exam_id, user_id, currect_answer, total_ques],
+                        "INSERT INTO participation (exam_id, exam_name, user_id, currect_answer, total_ques, date) VALUES(?,?,?,?,?,?)",
+                        [exam_id, exam_name, user_id, currect_answer, total_ques, date],
                         (err, result) => {
                             if(err)
                                 console.log(err);
@@ -194,7 +225,7 @@ app.post('/participate/:exam_id/:user_id', (req, res) => {
                 } else {
                     db.query(
                         `UPDATE participation SET exam_id="${exam_id}", user_id="${user_id}", currect_answer="${currect_answer}", 
-                        total_ques="${total_ques}" WHERE exam_id="${exam_id}" AND user_id="${user_id}"`,
+                        total_ques="${total_ques}", date="${date}", exam_name="${exam_name}" WHERE exam_id="${exam_id}" AND user_id="${user_id}"`,
                         (err, result) => {
                             if(err)
                                 console.log(err);
@@ -206,8 +237,6 @@ app.post('/participate/:exam_id/:user_id', (req, res) => {
             }
         }
     )
-
-    
 });
 
 // Getting user's participation in a specific exam
@@ -240,6 +269,24 @@ app.get('/participate/:exam_id', (req, res) => {
                 res.send(result);
         }
     )
+});
+
+// Getting all exams of a specific user
+app.get('/participatedbyuser/:user_id', (req, res) => {
+
+    const user_id = req.params.user_id;
+
+    db.query(
+        `SELECT * from participation WHERE user_id="${user_id}"`,
+        (err, result) => {
+            if(err)
+                console.log(err);
+            else {
+                res.send(result);
+            }
+             
+        }
+    ) 
 });
 
 // Updating a question
