@@ -18,6 +18,9 @@ const db = mysql.createConnection({
     database: 'hail_online',
 });
 
+app.get('/', (req, res) => {
+    res.send('les go')
+})
 
 // Storing Exam info
 app.post('/makeexam', (req, res) => {
