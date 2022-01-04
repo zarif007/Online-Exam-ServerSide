@@ -18,6 +18,13 @@ const db = mysql.createConnection({
     database: 'hail_online',
 });
 
+// const db = mysql.createConnection({
+//     user: 'uhsciriiugpkgynq',
+//     host: 'becxvkh1trujpinp2pzm-mysql.services.clever-cloud.com',
+//     password: 'kWI0ZlE4mQLYMWFdkh6v',
+//     database: 'becxvkh1trujpinp2pzm',
+// });
+
 app.get('/', (req, res) => {
     res.send('les go')
 })
