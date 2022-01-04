@@ -149,54 +149,54 @@ app.get('/questions/:quesId/:userId', (req, res) => {
 });
 
 // Getting user's grade
-// app.get('/grades/:exam_id/:user_id', (req, res) => {
+app.get('/grades/:exam_id/:user_id', (req, res) => {
 
-//     const exam_id = req.params.exam_id, user_id = req.params.user_id;
+    const exam_id = req.params.exam_id, user_id = req.params.user_id;
 
-//     let data = {};
+    let data = {};
 
-//     db.query(
-//         `SELECT * from exams WHERE exam_id="${exam_id}"`,
-//         (err, result) => {
-//             if(err)
-//                 console.log(err);
-//             else {
-//                 data = {
-//                     name: result[0].name,
-//                     subject: result[0].subject,
-//                     author: result[0].author,
-//                 }
+    db.query(
+        `SELECT * from exams WHERE exam_id="${exam_id}"`,
+        (err, result) => {
+            if(err)
+                console.log(err);
+            else {
+                data = {
+                    name: result[0].name,
+                    subject: result[0].subject,
+                    author: result[0].author,
+                }
 
-//                 db.query(
-//                     `SELECT * from questions WHERE exam_id="${exam_id}"`,
-//                     (err, result) => {
-//                         if(err)
-//                             console.log(err);
-//                         else {
-//                             let total_ques = result.length, currect_answer = 0;
+                db.query(
+                    `SELECT * from questions WHERE exam_id="${exam_id}"`,
+                    (err, result) => {
+                        if(err)
+                            console.log(err);
+                        else {
+                            let total_ques = result.length, currect_answer = 0;
                             
-//                             db.query(
-//                                 `SELECT * from response WHERE exam_id="${exam_id}" AND user_id="${user_id}"`,
-//                                 (err, result) => {
-//                                     if(err)
-//                                         console.log(err);
-//                                     else {
-//                                         data.total_ques = total_ques;
-//                                         result.map(res => currect_answer += res.answer === res.userAnswer);
+                            db.query(
+                                `SELECT * from response WHERE exam_id="${exam_id}" AND user_id="${user_id}"`,
+                                (err, result) => {
+                                    if(err)
+                                        console.log(err);
+                                    else {
+                                        data.total_ques = total_ques;
+                                        result.map(res => currect_answer += res.answer === res.userAnswer);
                                         
-//                                         data.currect_answer = currect_answer;
+                                        data.currect_answer = currect_answer;
 
-//                                         res.send(data);
-//                                     }
-//                                 }
-//                             )
-//                         }
-//                     }
-//                 );
-//             }
-//         }
-//     );
-// });
+                                        res.send(data);
+                                    }
+                                }
+                            )
+                        }
+                    }
+                );
+            }
+        }
+    );
+});
 
 // Storing user's participation
 app.post('/participate/:exam_id/:user_id', (req, res) => {
