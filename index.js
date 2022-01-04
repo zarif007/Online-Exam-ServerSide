@@ -13,17 +13,11 @@ app.use(express.json());
 // Connecting to MySQL database
 const db = mysql.createConnection({
     user: process.env.DB_USER,
-    host: 'localhost',
+    host: process.env.DB_HOST,
     password: process.env.DB_PASS,
-    database: 'hail_online',
+    database: process.env.DB_DATABASE,
 });
 
-// const db = mysql.createConnection({
-//     user: 'uhsciriiugpkgynq',
-//     host: 'becxvkh1trujpinp2pzm-mysql.services.clever-cloud.com',
-//     password: 'kWI0ZlE4mQLYMWFdkh6v',
-//     database: 'becxvkh1trujpinp2pzm',
-// });
 
 app.get('/', (req, res) => {
     res.send('les go')
