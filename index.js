@@ -199,46 +199,46 @@ app.get('/grades/:exam_id/:user_id', (req, res) => {
 });
 
 // Storing user's participation
-app.post('/participate/:exam_id/:user_id', (req, res) => {
+// app.post('/participate/:exam_id/:user_id', (req, res) => {
 
-    const exam_id = req.params.exam_id, user_id = req.params.user_id;
-    const {currect_answer, total_ques, date, exam_name} = req.body;
+//     const exam_id = req.params.exam_id, user_id = req.params.user_id;
+//     const {currect_answer, total_ques, date, exam_name} = req.body;
 
-    let shouldInsert = true;
+//     let shouldInsert = true;
 
-    db.query(
-        `SELECT * from participation WHERE exam_id="${exam_id}" AND user_id="${user_id}"`,
-        (err, result) => {
-            if(err)
-                console.log(err);
-            else {
-                if(result.length === 0){
-                    db.query(
-                        "INSERT INTO participation (exam_id, exam_name, user_id, currect_answer, total_ques, date) VALUES(?,?,?,?,?,?)",
-                        [exam_id, exam_name, user_id, currect_answer, total_ques, date],
-                        (err, result) => {
-                            if(err)
-                                console.log(err);
-                            else 
-                                console.log(result);
-                        }
-                    )
-                } else {
-                    db.query(
-                        `UPDATE participation SET exam_id="${exam_id}", user_id="${user_id}", currect_answer="${currect_answer}", 
-                        total_ques="${total_ques}", date="${date}", exam_name="${exam_name}" WHERE exam_id="${exam_id}" AND user_id="${user_id}"`,
-                        (err, result) => {
-                            if(err)
-                                console.log(err);
-                            else 
-                                console.log(result);
-                        }
-                    )
-                }
-            }
-        }
-    )
-});
+//     db.query(
+//         `SELECT * from participation WHERE exam_id="${exam_id}" AND user_id="${user_id}"`,
+//         (err, result) => {
+//             if(err)
+//                 console.log(err);
+//             else {
+//                 if(result.length === 0){
+//                     db.query(
+//                         "INSERT INTO participation (exam_id, exam_name, user_id, currect_answer, total_ques, date) VALUES(?,?,?,?,?,?)",
+//                         [exam_id, exam_name, user_id, currect_answer, total_ques, date],
+//                         (err, result) => {
+//                             if(err)
+//                                 console.log(err);
+//                             else 
+//                                 console.log(result);
+//                         }
+//                     )
+//                 } else {
+//                     db.query(
+//                         `UPDATE participation SET exam_id="${exam_id}", user_id="${user_id}", currect_answer="${currect_answer}", 
+//                         total_ques="${total_ques}", date="${date}", exam_name="${exam_name}" WHERE exam_id="${exam_id}" AND user_id="${user_id}"`,
+//                         (err, result) => {
+//                             if(err)
+//                                 console.log(err);
+//                             else 
+//                                 console.log(result);
+//                         }
+//                     )
+//                 }
+//             }
+//         }
+//     )
+// });
 
 // Getting user's participation in a specific exam
 app.get('/participate/:exam_id/:user_id', (req, res) => {
