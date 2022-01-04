@@ -17,7 +17,6 @@ const db = mysql.createConnection({
     database: process.env.DB_DATABASE,
 });
 
-
 app.get('/', (req, res) => {
     res.send('les go')
 })
