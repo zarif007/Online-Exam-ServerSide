@@ -4,6 +4,8 @@ require('dotenv').config();
 const cors = require('cors');
 const mysql = require('mysql');
 
+let crypto = require("crypto");
+
 const port = process.env.PORT || 5000;
 
 app.use(cors());
@@ -104,9 +106,11 @@ app.post('/response', (req, res) => {
 
     const { exam_id, ques_id, user_id, answer, userAnswer } = req.body;
 
+    let id = crypto.randomBytes(8).toString('hex');
+
     db.query(
-        "INSERT INTO response (exam_id, ques_id, user_id, answer, userAnswer) VALUES(?,?,?,?,?)",
-        [exam_id, ques_id, user_id, answer, userAnswer],
+        "INSERT INTO response (id, exam_id, ques_id, user_id, answer, userAnswer) VALUES(?,?,?,?,?,?)",
+        [id, exam_id, ques_id, user_id, answer, userAnswer],
         (err, result) => {
             if(err)
                 console.log(err);
@@ -338,6 +342,6 @@ app.delete('/deletequestion/:ques_id', (req, res) => {
 
 
 
-app.listen(process.env.PORT || 5000, () => {
+app.listen(port, () => {
     console.log('ok!')
 })
