@@ -106,7 +106,7 @@ app.post('/response', (req, res) => {
 
     const { exam_id, ques_id, user_id, answer, userAnswer } = req.body;
 
-    let id = crypto.randomBytes(8).toString('hex');
+    let id = crypto.randomBytes(3).toString('hex');
 
     db.query(
         "INSERT INTO response (id, exam_id, ques_id, user_id, answer, userAnswer) VALUES(?,?,?,?,?,?)",
@@ -208,7 +208,7 @@ app.post('/participate/:exam_id/:user_id', (req, res) => {
     const exam_id = req.params.exam_id, user_id = req.params.user_id;
     const {currect_answer, total_ques, date, exam_name} = req.body;
 
-    let shouldInsert = true;
+    let id = crypto.randomBytes(3).toString('hex');
 
     db.query(
         `SELECT * from participation WHERE exam_id="${exam_id}" AND user_id="${user_id}"`,
@@ -218,8 +218,8 @@ app.post('/participate/:exam_id/:user_id', (req, res) => {
             else {
                 if(result.length === 0){
                     db.query(
-                        "INSERT INTO participation (exam_id, exam_name, user_id, currect_answer, total_ques, date) VALUES(?,?,?,?,?,?)",
-                        [exam_id, exam_name, user_id, currect_answer, total_ques, date],
+                        "INSERT INTO participation (id, exam_id, exam_name, user_id, currect_answer, total_ques, date) VALUES(?,?,?,?,?,?,?)",
+                        [id, exam_id, exam_name, user_id, currect_answer, total_ques, date],
                         (err, result) => {
                             if(err)
                                 console.log(err);
