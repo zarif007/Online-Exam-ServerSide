@@ -20,7 +20,7 @@ const db = mysql.createConnection({
 });
 
 app.get('/', (req, res) => {
-    res.send('les go')
+    res.json('les go')
 })
 
 // Storing Exam info
@@ -34,7 +34,7 @@ app.post('/makeexam', (req, res) => {
             if(err)
                 console.log(err);
             else 
-                res.send('Values Inserted')
+                res.json('Values Inserted')
         }
     )
 });
@@ -64,7 +64,7 @@ app.get('/examcreatedbyuser/:author', (req, res) => {
             if(err)
                 console.log(err);
             else 
-                res.send(result);
+                res.json(result);
         }
     )
 });
@@ -81,7 +81,7 @@ app.post('/addquestion', (req, res) => {
             if(err)
                 console.log(err);
             else 
-                res.send('Values Inserted')
+                res.json('Values Inserted')
         }
     )
 });
@@ -96,7 +96,7 @@ app.get('/questions/:examId', (req, res) => {
             if(err)
                 console.log(err);
             else 
-                res.send(result);
+                res.json(result);
         }
     )
 });
@@ -131,7 +131,7 @@ app.get('/responses/:quesId', (req, res) => {
             if(err)
                 console.log(err);
             else 
-                res.send(result);
+                res.json(result);
         }
     )
 });
@@ -147,7 +147,7 @@ app.get('/questions/:quesId/:userId', (req, res) => {
             if(err)
                 console.log(err);
             else 
-                res.send(result);
+                res.json(result);
         }
     )
 });
@@ -190,7 +190,7 @@ app.get('/grades/:exam_id/:user_id', (req, res) => {
                                         
                                         data.currect_answer = currect_answer;
 
-                                        res.send(data);
+                                        res.json(data);
                                     }
                                 }
                             )
@@ -255,7 +255,7 @@ app.get('/participate/:exam_id/:user_id', (req, res) => {
             if(err)
                 console.log(err);
             else 
-                res.send(result);
+                res.json(result);
         }
     )
 });
@@ -271,7 +271,7 @@ app.get('/participate/:exam_id', (req, res) => {
             if(err)
                 console.log(err);
             else 
-                res.send(result);
+                res.json(result);
         }
     )
 });
@@ -287,7 +287,7 @@ app.get('/participatedbyuser/:user_id', (req, res) => {
             if(err)
                 console.log(err);
             else {
-                res.send(result);
+                res.json(result);
             }
              
         }
@@ -312,7 +312,7 @@ app.patch('/updatequestion', (req, res) => {
                         if(err)
                             console.log(err);
                         else 
-                            res.send(result);
+                            res.json(result);
                     }
                 )
             }
@@ -333,7 +333,7 @@ app.delete('/deletequestion/:ques_id', (req, res) => {
             if(err)
                 console.log(err);
             else 
-                res.send(result);
+                res.json(result);
         }
     )
 });
