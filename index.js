@@ -152,7 +152,7 @@ app.get('/questions/:quesId/:userId', (req, res) => {
     )
 });
 
-// Getting user's grade
+// Getting user's grade 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
 app.get('/grades/:exam_id/:user_id', (req, res) => {
 
     const exam_id = req.params.exam_id, user_id = req.params.user_id;
@@ -202,7 +202,7 @@ app.get('/grades/:exam_id/:user_id', (req, res) => {
     );
 });
 
-// Storing user's participation
+// Storing user's participation 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
 app.post('/participate/:exam_id/:user_id', (req, res) => {
 
     const exam_id = req.params.exam_id, user_id = req.params.user_id;
@@ -294,7 +294,7 @@ app.get('/participatedbyuser/:user_id', (req, res) => {
     ) 
 });
 
-// Updating a question
+// Updating a question 🚨🚨🚨🚨🚨🚨🚨🚨🚨
 app.patch('/updatequestion', (req, res) => {
 
     const {exam_id, ques_id, question, option1, option2, option3, option4, answer} = req.body;
